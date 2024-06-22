@@ -54,14 +54,15 @@ DOUBLE_BATTLE_TEST("Dancer can copy Teeter Dance and confuse both opposing targe
     }
 }
 
+// Have to watch the recording to verify it
 DOUBLE_BATTLE_TEST("Dancer triggers from slowest to fastest")
 {
     GIVEN {
         ASSUME(gMovesInfo[MOVE_DRAGON_DANCE].danceMove == TRUE);
-        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_DANCER); Speed(10); }
+        PLAYER(SPECIES_ORICORIO) { Ability(ABILITY_DANCER); Speed(10); }
         PLAYER(SPECIES_WYNAUT) { Speed(50); }
         OPPONENT(SPECIES_ORICORIO) { Ability(ABILITY_DANCER); Speed(20); }
-        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_DANCER); Speed(3); }
+        OPPONENT(SPECIES_ORICORIO) { Ability(ABILITY_DANCER); Speed(3); }
     } WHEN {
         TURN { MOVE(playerRight, MOVE_DRAGON_DANCE); }
     } SCENE {
@@ -103,7 +104,7 @@ DOUBLE_BATTLE_TEST("Dancer still triggers if another dancer flinches")
     GIVEN {
         ASSUME(MoveHasAdditionalEffectWithChance(MOVE_FAKE_OUT, MOVE_EFFECT_FLINCH, 100));
         ASSUME(gMovesInfo[MOVE_DRAGON_DANCE].danceMove == TRUE);
-        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_DANCER); Speed(10); }
+        PLAYER(SPECIES_ORICORIO) { Ability(ABILITY_DANCER); Speed(10); }
         PLAYER(SPECIES_WYNAUT) { Speed(5); }
         OPPONENT(SPECIES_ORICORIO) { Ability(ABILITY_DANCER); Speed(20); }
         OPPONENT(SPECIES_WOBBUFFET) { Speed(3); }
@@ -114,9 +115,9 @@ DOUBLE_BATTLE_TEST("Dancer still triggers if another dancer flinches")
         ANIMATION(ANIM_TYPE_MOVE, MOVE_DRAGON_DANCE, playerRight);
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, playerRight);
         ABILITY_POPUP(playerLeft, ABILITY_DANCER);
-        MESSAGE("Wobbuffet flinched!");
+        MESSAGE("Oricorio flinched!");
         NONE_OF {
-            MESSAGE("Wobbuffet used Dragon Dance!");
+            MESSAGE("Oricorio used Dragon Dance!");
             ANIMATION(ANIM_TYPE_MOVE, MOVE_DRAGON_DANCE, playerLeft);
             ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, playerLeft);
         }

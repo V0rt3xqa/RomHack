@@ -28,14 +28,14 @@ SINGLE_BATTLE_TEST("Stamina raises Defense by 1 when hit by a move")
         ASSUME(gMovesInfo[MOVE_GUST].power != 0);
         ASSUME(gMovesInfo[MOVE_GUST].category == DAMAGE_CATEGORY_SPECIAL);
         ASSUME(gMovesInfo[MOVE_TACKLE].category == DAMAGE_CATEGORY_PHYSICAL);
-        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_STAMINA); }
+        PLAYER(SPECIES_ARCHALUDON) { Ability(ABILITY_STAMINA); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
         TURN { MOVE(opponent, move); }
         TURN { MOVE(opponent, move); }
     } SCENE {
-        STAMINA_HIT(opponent, player, move, "Wobbuffet's Defense rose!", turnOneHit);
-        STAMINA_HIT(opponent, player, move, "Wobbuffet's Defense rose!", turnTwoHit);
+        STAMINA_HIT(opponent, player, move, "Archaludon's Defense rose!", turnOneHit);
+        STAMINA_HIT(opponent, player, move, "Archaludon's Defense rose!", turnTwoHit);
     }
     THEN {
         if (move == MOVE_TACKLE) {
@@ -51,16 +51,16 @@ DOUBLE_BATTLE_TEST("Stamina activates correctly for every battler with the abili
 {
     u16 abilityLeft, abilityRight;
 
-    PARAMETRIZE {abilityLeft = ABILITY_NONE, abilityRight = ABILITY_STAMINA; }
-    PARAMETRIZE {abilityLeft = ABILITY_STAMINA, abilityRight = ABILITY_NONE; }
+    PARAMETRIZE {abilityLeft = ABILITY_STALWART, abilityRight = ABILITY_STAMINA; }
+    PARAMETRIZE {abilityLeft = ABILITY_STAMINA, abilityRight = ABILITY_STALWART; }
     PARAMETRIZE {abilityLeft = ABILITY_STAMINA, abilityRight = ABILITY_STAMINA; }
 
     GIVEN {
         ASSUME(gMovesInfo[MOVE_EARTHQUAKE].target == MOVE_TARGET_FOES_AND_ALLY);
-        PLAYER(SPECIES_WOBBUFFET) { Ability(abilityLeft); Speed(10); }
-        PLAYER(SPECIES_WOBBUFFET) { Ability(abilityRight); Speed(5); }
-        OPPONENT(SPECIES_WOBBUFFET) {Speed(20); }
-        OPPONENT(SPECIES_WOBBUFFET) {Speed(15); }
+        PLAYER(SPECIES_ARCHALUDON) { Ability(abilityLeft); Speed(10); }
+        PLAYER(SPECIES_ARCHALUDON) { Ability(abilityRight); Speed(5); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(20); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(15); }
     } WHEN {
         TURN { MOVE(opponentLeft, MOVE_EARTHQUAKE);}
     } SCENE {
@@ -68,13 +68,13 @@ DOUBLE_BATTLE_TEST("Stamina activates correctly for every battler with the abili
 
         HP_BAR(playerLeft);
         if (abilityLeft == ABILITY_STAMINA) {
-            STAMINA_STAT_RAISE(playerLeft, "Wobbuffet's Defense rose!");
+            STAMINA_STAT_RAISE(playerLeft, "Archaludon's Defense rose!");
         }
         NOT HP_BAR(opponentLeft); // We need to check the attacker itself does NOT get damaged. There was an issue when the targets would get overwritten by the Stamina's stat raise.
 
         HP_BAR(playerRight);
         if (abilityRight == ABILITY_STAMINA) {
-            STAMINA_STAT_RAISE(playerRight, "Wobbuffet's Defense rose!");
+            STAMINA_STAT_RAISE(playerRight, "Archaludon's Defense rose!");
         }
         NOT HP_BAR(opponentLeft); // We need to check the attacker itself does NOT get damaged. There was an issue when the targets would get overwritten by the Stamina's stat raise.
 

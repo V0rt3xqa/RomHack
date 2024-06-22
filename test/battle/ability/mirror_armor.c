@@ -70,14 +70,14 @@ SINGLE_BATTLE_TEST("Mirror Armor doesn't lower the stats of an attacking Pokemon
 {
     GIVEN {
         PLAYER(SPECIES_CORVIKNIGHT) { Ability(ABILITY_MIRROR_ARMOR); }
-        OPPONENT(SPECIES_WYNAUT) { Ability(ABILITY_CLEAR_BODY); }
+        OPPONENT(SPECIES_BELDUM) { Ability(ABILITY_CLEAR_BODY); }
     } WHEN {
         TURN { MOVE(opponent, MOVE_LEER); }
     } SCENE {
-        MESSAGE("Foe Wynaut used Leer!");
+        MESSAGE("Foe Beldum used Leer!");
         ABILITY_POPUP(player, ABILITY_MIRROR_ARMOR);
         ABILITY_POPUP(opponent, ABILITY_CLEAR_BODY);
-        MESSAGE("Foe Wynaut's Clear Body prevents stat loss!");
+        MESSAGE("Foe Beldum's Clear Body prevents stat loss!");
     } THEN {
         EXPECT_EQ(player->statStages[STAT_DEF], DEFAULT_STAT_STAGE);
         EXPECT_EQ(opponent->statStages[STAT_DEF], DEFAULT_STAT_STAGE);
@@ -199,7 +199,7 @@ DOUBLE_BATTLE_TEST("Mirror Armor lowers Speed of the partner Pokemon after Court
 SINGLE_BATTLE_TEST("Mirror Armor reflects Tangling Hair speed drop")
 {
     GIVEN {
-        PLAYER(SPECIES_DUGTRIO) { Ability(ABILITY_TANGLING_HAIR); }
+        PLAYER(SPECIES_DUGTRIO_ALOLAN) { Ability(ABILITY_TANGLING_HAIR); }
         OPPONENT(SPECIES_CORVIKNIGHT) { Ability(ABILITY_MIRROR_ARMOR); }
     } WHEN {
         TURN { MOVE(opponent, MOVE_TACKLE); }

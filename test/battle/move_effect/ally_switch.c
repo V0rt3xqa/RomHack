@@ -92,15 +92,16 @@ DOUBLE_BATTLE_TEST("Ally Switch does not redirect the target of Snipe Shot")
 
 DOUBLE_BATTLE_TEST("Ally Switch does not redirect moves done by pokemon with Stalwart and Propeller Tail")
 {
+    u16 species;
     u16 ability;
-    PARAMETRIZE { ability = ABILITY_STALWART; }
-    PARAMETRIZE { ability = ABILITY_PROPELLER_TAIL; }
-    PARAMETRIZE { ability = ABILITY_TELEPATHY; }
+    PARAMETRIZE { species = SPECIES_DURALUDON; ability = ABILITY_STALWART; }
+    PARAMETRIZE { species = SPECIES_ARROKUDA; ability = ABILITY_PROPELLER_TAIL; }
+    PARAMETRIZE { species = SPECIES_WYNAUT; ability = ABILITY_TELEPATHY; }
 
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET); // Wobb is playerLeft, but it'll be Wynaut after Ally Switch
         PLAYER(SPECIES_WYNAUT);
-        OPPONENT(SPECIES_KADABRA) { Ability(ability); }
+        OPPONENT(species) { Ability(ability); }
         OPPONENT(SPECIES_ABRA);
     } WHEN {
         TURN { MOVE(playerLeft, MOVE_ALLY_SWITCH); MOVE(opponentLeft, MOVE_TACKLE, target:playerRight); } // Kadabra targets playerRight Wynaut.
@@ -109,7 +110,6 @@ DOUBLE_BATTLE_TEST("Ally Switch does not redirect moves done by pokemon with Sta
         ANIMATION(ANIM_TYPE_MOVE, MOVE_ALLY_SWITCH, playerLeft);
         MESSAGE("Wobbuffet and Wynaut switched places!");
 
-        MESSAGE("Foe Kadabra used Tackle!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_TACKLE, opponentLeft);
         HP_BAR((ability == ABILITY_STALWART || ability == ABILITY_PROPELLER_TAIL) ? playerLeft : playerRight);
     }

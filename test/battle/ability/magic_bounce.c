@@ -88,7 +88,7 @@ DOUBLE_BATTLE_TEST("Magic Bounce bounces back moves hitting foes field")
 
     PARAMETRIZE { battlerOne = SPECIES_NATU; abilityBattlerOne = ABILITY_MAGIC_BOUNCE;
                   battlerTwo = SPECIES_ESPEON; abilityBattlerTwo = ABILITY_SYNCHRONIZE; }
-    PARAMETRIZE { battlerOne = SPECIES_NATU; abilityBattlerOne = ABILITY_KEEN_EYE;
+    PARAMETRIZE { battlerOne = SPECIES_NATU; abilityBattlerOne = ABILITY_EARLY_BIRD;
                   battlerTwo = SPECIES_ESPEON; abilityBattlerTwo = ABILITY_MAGIC_BOUNCE; }
 
     GIVEN {

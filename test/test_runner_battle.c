@@ -22,7 +22,6 @@
 #undef TestRunner_Battle_RecordStatus1
 #undef TestRunner_Battle_AfterLastTurn
 #undef TestRunner_Battle_CheckBattleRecordActionType
-#undef TestRunner_Battle_GetForcedAbility
 #endif
 
 #define INVALID(fmt, ...) Test_ExitWithResult(TEST_RESULT_INVALID, "%s:%d: " fmt, gTestRunnerState.test->filename, sourceLine, ##__VA_ARGS__)
@@ -1647,11 +1646,7 @@ void Ability_(u32 sourceLine, u32 ability)
             break;
         }
     }
-    // Store forced ability to be set when the battle starts if invalid.
-    if (i == NUM_ABILITY_SLOTS)
-    {
-        DATA.forcedAbilities[DATA.currentSide][DATA.currentPartyIndex] = ability;
-    }
+    INVALID_IF(i == NUM_ABILITY_SLOTS, "%S cannot have %S", gSpeciesInfo[species].speciesName, gAbilitiesInfo[ability].name);
 }
 
 void Level_(u32 sourceLine, u32 level)
@@ -2109,7 +2104,7 @@ void MoveGetIdAndSlot(s32 battlerId, struct MoveContext *ctx, u32 *moveId, u32 *
 
     if (ctx->explicitDynamax && ctx->dynamax)
         *moveSlot |= RET_DYNAMAX;
-    
+
     if (ctx->explicitTera && ctx->tera)
         *moveSlot |= RET_TERASTAL;
 }
@@ -2668,11 +2663,6 @@ void ValidateFinally(u32 sourceLine)
 {
     // Defer this error until after estimating the cost.
     INVALID_IF(STATE->parametersCount == 0, "FINALLY without PARAMETRIZE");
-}
-
-u32 TestRunner_Battle_GetForcedAbility(u32 side, u32 partyIndex)
-{
-    return DATA.forcedAbilities[side][partyIndex];
 }
 
 // TODO: Consider storing the last successful i and searching from i+1

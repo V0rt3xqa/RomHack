@@ -90,7 +90,7 @@ SINGLE_BATTLE_TEST("Knock Off does not remove items through Substitute")
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET) { Item(ITEM_LEFTOVERS); };
     } WHEN {
-        TURN { MOVE(opponent, MOVE_SUBSTITUTE); 
+        TURN { MOVE(opponent, MOVE_SUBSTITUTE);
                MOVE(player, MOVE_KNOCK_OFF); }
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_KNOCK_OFF, player);
@@ -112,7 +112,7 @@ SINGLE_BATTLE_TEST("Recycle cannot recover an item removed by Knock Off")
         ANIMATION(ANIM_TYPE_MOVE, MOVE_KNOCK_OFF, player);
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_ITEM_KNOCKOFF);
         MESSAGE("Wobbuffet knocked off Foe Wobbuffet's Leftovers!");
-        
+
         MESSAGE("Foe Wobbuffet used Recycle!");
         MESSAGE("But it failed!");
     } THEN {
@@ -155,7 +155,7 @@ SINGLE_BATTLE_TEST("Knock Off triggers Unburden")
 {
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET) { Speed(60); }
-        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_UNBURDEN); Item(ITEM_LEFTOVERS); Speed(50); }
+        OPPONENT(SPECIES_SCEPTILE) { Ability(ABILITY_UNBURDEN); Item(ITEM_LEFTOVERS); Speed(50); }
     } WHEN {
         TURN { MOVE(player, MOVE_KNOCK_OFF); }
         TURN { MOVE(player, MOVE_CELEBRATE); }
@@ -163,9 +163,9 @@ SINGLE_BATTLE_TEST("Knock Off triggers Unburden")
         // turn 1
         ANIMATION(ANIM_TYPE_MOVE, MOVE_KNOCK_OFF, player);
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_ITEM_KNOCKOFF);
-        MESSAGE("Wobbuffet knocked off Foe Wobbuffet's Leftovers!");
+        MESSAGE("Wobbuffet knocked off Foe Sceptile's Leftovers!");
         // turn 2
-        MESSAGE("Foe Wobbuffet used Celebrate!");
+        MESSAGE("Foe Sceptile used Celebrate!");
         MESSAGE("Wobbuffet used Celebrate!");
     } THEN {
         EXPECT(opponent->item == ITEM_NONE);

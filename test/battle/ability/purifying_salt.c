@@ -48,7 +48,7 @@ SINGLE_BATTLE_TEST("Purifying Salt grants immunity to status effects")
         ASSUME(gMovesInfo[MOVE_THUNDER_WAVE].effect == EFFECT_PARALYZE);
         ASSUME(gMovesInfo[MOVE_TOXIC].effect == EFFECT_TOXIC);
         ASSUME(MoveHasAdditionalEffect(MOVE_POWDER_SNOW, MOVE_EFFECT_FREEZE_OR_FROSTBITE) == TRUE);
-        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_PURIFYING_SALT); }
+        PLAYER(SPECIES_GARGANACL) { Ability(ABILITY_PURIFYING_SALT); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
         TURN { MOVE(opponent, move); }
@@ -56,7 +56,7 @@ SINGLE_BATTLE_TEST("Purifying Salt grants immunity to status effects")
         if (move != MOVE_POWDER_SNOW) {
             NOT ANIMATION(ANIM_TYPE_MOVE, move, opponent);
             ABILITY_POPUP(player, ABILITY_PURIFYING_SALT);
-            MESSAGE("It doesn't affect Wobbuffet…");
+            MESSAGE("It doesn't affect Garganacl…");
             NOT STATUS_ICON(player, status);
         } else {
             NONE_OF {

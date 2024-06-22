@@ -8,7 +8,7 @@ SINGLE_BATTLE_TEST("Mind's Eye allows to hit Ghost-type Pokémon with Normal- an
     PARAMETRIZE { move = MOVE_KARATE_CHOP; }
 
     GIVEN {
-        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_MINDS_EYE); };
+        PLAYER(SPECIES_URSALUNA_BLOODMOON) { Ability(ABILITY_MINDS_EYE); };
         OPPONENT(SPECIES_GASTLY);
     } WHEN {
         TURN { MOVE(player, move); }
@@ -18,7 +18,6 @@ SINGLE_BATTLE_TEST("Mind's Eye allows to hit Ghost-type Pokémon with Normal- an
     }
 }
 
-// No current official way to test this, effect based on Smogon's NatDex format.
 SINGLE_BATTLE_TEST("Mind's Eye doesn't bypass a Ghost-type's Wonder Guard")
 {
     u32 move;
@@ -26,7 +25,7 @@ SINGLE_BATTLE_TEST("Mind's Eye doesn't bypass a Ghost-type's Wonder Guard")
     PARAMETRIZE { move = MOVE_KARATE_CHOP; }
 
     GIVEN {
-        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_SCRAPPY); };
+        PLAYER(SPECIES_URSALUNA_BLOODMOON) { Ability(ABILITY_MINDS_EYE); };
         OPPONENT(SPECIES_SHEDINJA) { Ability(ABILITY_WONDER_GUARD); };
     } WHEN {
         TURN { MOVE(player, move); }
@@ -56,7 +55,7 @@ AI_SINGLE_BATTLE_TEST("AI doesn't use accuracy-lowering moves if it knows that t
 
     GIVEN {
         AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT);
-        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_MINDS_EYE); }
+        PLAYER(SPECIES_URSALUNA_BLOODMOON) { Ability(ABILITY_MINDS_EYE); }
         OPPONENT(SPECIES_BASCULEGION) { Moves(MOVE_CELEBRATE, moveAI); Ability(abilityAI); }
     } WHEN {
             TURN { MOVE(player, MOVE_TACKLE); }

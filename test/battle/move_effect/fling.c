@@ -270,7 +270,7 @@ SINGLE_BATTLE_TEST("Fling's secondary effects are blocked by Shield Dust")
 
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET) { Item(item); }
-        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_SHIELD_DUST); }
+        OPPONENT(SPECIES_DUSTOX) { Ability(ABILITY_SHIELD_DUST); }
     } WHEN {
         TURN { MOVE(player, MOVE_FLING); }
     } SCENE {
