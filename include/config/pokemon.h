@@ -39,6 +39,7 @@
 #define P_ARCEUS_UNIQUE_FORM_ICONS  GEN_LATEST  // Since Gen 9, Arceus additionally changes its icon to reflect its current form.
 
 // Other settings
+#define P_GENDER_DIFFERENCES        TRUE        // If TRUE, Pokémon with gender differences will have different front and back sprites.
 #define P_CUSTOM_GENDER_DIFF_ICONS  TRUE        // If TRUE, will give more Pokémon custom icons for their female forms, i.e. Hippopotas and Hippowdon
 #define P_FOOTPRINTS                TRUE        // If TRUE, Pokémon will have footprints (as was the case up to Gen 5 and in BDSP). Disabling this saves some ROM space.
 #define P_CRIES_ENABLED             TRUE        // If TRUE, Pokémon will have cries. Disabling this saves around a LOT of ROM space (over 25%!), but instead we recommend disabling individual unused Pokémon families in include/config/species_enabled.h.

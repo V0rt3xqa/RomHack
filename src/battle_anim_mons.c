@@ -2151,7 +2151,7 @@ s16 GetBattlerSpriteCoordAttr(u8 battlerId, u8 attr)
             species = SanitizeSpeciesId(species);
             if (species == SPECIES_UNOWN)
                 species = GetUnownSpeciesId(personality);
-            if (gSpeciesInfo[species].backPicFemale != NULL && IsPersonalityFemale(species, personality))
+            if (P_GENDER_DIFFERENCES && gSpeciesInfo[species].backPicFemale != NULL && IsPersonalityFemale(species, personality))
                 size = gSpeciesInfo[species].backPicSizeFemale;
             else
                 size = gSpeciesInfo[species].backPicSize;
@@ -2174,7 +2174,7 @@ s16 GetBattlerSpriteCoordAttr(u8 battlerId, u8 attr)
             species = SanitizeSpeciesId(species);
             if (species == SPECIES_UNOWN)
                 species = GetUnownSpeciesId(personality);
-            if (gSpeciesInfo[species].frontPicFemale != NULL && IsPersonalityFemale(species, personality))
+            if (P_GENDER_DIFFERENCES && gSpeciesInfo[species].frontPicFemale != NULL && IsPersonalityFemale(species, personality))
                 size = gSpeciesInfo[species].frontPicSizeFemale;
             else
                 size = gSpeciesInfo[species].frontPicSize;
