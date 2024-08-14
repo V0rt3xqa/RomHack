@@ -370,10 +370,20 @@
 	.endm
 
 	.macro end2
-	.byte 0x3e
+	.warning "end2 is deprecated; use end"
+	end
 	.endm
 
 	.macro end3
+	.warning "end3 is deprecated; use end"
+	end
+	.endm
+
+	.macro unused_3e
+	.byte 0x3e
+	.endm
+
+	.macro unused_3f
 	.byte 0x3f
 	.endm
 
@@ -1206,9 +1216,8 @@
 	.4byte \failInstr
 	.endm
 
-	.macro unused2 ptr:req
+	.macro unused_e1
 	.byte 0xe1
-	.4byte \ptr
 	.endm
 
 	.macro switchoutabilities battler:req
@@ -1232,11 +1241,11 @@
 	.byte 0xe5
 	.endm
 
-	.macro unused3
+	.macro unused_e6
 	.byte 0xe6
 	.endm
 
-	.macro unused4
+	.macro unused_e7
 	.byte 0xe7
 	.endm
 
@@ -1336,9 +1345,8 @@
 	.4byte \jumpInstr
 	.endm
 
-	.macro unused ptr:req
+	.macro unused_fd
 	.byte 0xfd
-	.4byte \ptr
 	.endm
 
 	.macro tryworryseed failInstr:req

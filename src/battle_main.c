@@ -440,6 +440,7 @@ void CB2_InitBattle(void)
     AllocateBattleSpritesData();
     AllocateMonSpritesGfx();
     RecordedBattle_ClearFrontierPassFlag();
+    gBattlescriptCurrInstr = BattleScript_End;
 
     if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
     {
@@ -3946,7 +3947,7 @@ static void TryDoEventsBeforeFirstTurn(void)
         }
 
         if ((i = ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), TRAINER_SLIDE_BEFORE_FIRST_TURN)))
-            BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd2 : BattleScript_TrainerBSlideMsgEnd2);
+            BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd : BattleScript_TrainerBSlideMsgEnd);
         gBattleStruct->eventsBeforeFirstTurnState = 0;
         break;
     }
@@ -4044,17 +4045,17 @@ void BattleTurnPassed(void)
     else if (gBattleTypeFlags & BATTLE_TYPE_ARENA && gBattleStruct->arenaTurnCounter == 0)
         BattleScriptExecute(BattleScript_ArenaTurnBeginning);
     else if ((i = ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), TRAINER_SLIDE_LAST_LOW_HP)))
-        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd2 : BattleScript_TrainerBSlideMsgEnd2);
+        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd : BattleScript_TrainerBSlideMsgEnd);
     else if ((i = ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), TRAINER_SLIDE_LAST_HALF_HP)))
-        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd2 : BattleScript_TrainerBSlideMsgEnd2);
+        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd : BattleScript_TrainerBSlideMsgEnd);
     else if ((i = ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), TRAINER_SLIDE_FIRST_CRITICAL_HIT)))
-        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd2 : BattleScript_TrainerBSlideMsgEnd2);
+        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd : BattleScript_TrainerBSlideMsgEnd);
     else if ((i = ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), TRAINER_SLIDE_FIRST_SUPER_EFFECTIVE_HIT)))
-        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd2 : BattleScript_TrainerBSlideMsgEnd2);
+        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd : BattleScript_TrainerBSlideMsgEnd);
     else if ((i = ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), TRAINER_SLIDE_FIRST_STAB_MOVE)))
-        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd2 : BattleScript_TrainerBSlideMsgEnd2);
+        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd : BattleScript_TrainerBSlideMsgEnd);
     else if ((i = ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), TRAINER_SLIDE_PLAYER_MON_UNAFFECTED)))
-        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd2 : BattleScript_TrainerBSlideMsgEnd2);
+        BattleScriptExecute(i == 1 ? BattleScript_TrainerASlideMsgEnd : BattleScript_TrainerBSlideMsgEnd);
 }
 
 u8 IsRunningFromBattleImpossible(u32 battler)
@@ -5194,13 +5195,13 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
                 switch (gChosenMoveByBattler[gBattlerAttacker])
                 {
                 case MOVE_FOCUS_PUNCH:
-                    BattleScriptExecute(BattleScript_FocusPunchSetUp);
+                    BattleScriptPushCursorAndCallback(BattleScript_FocusPunchSetUp);
                     return TRUE;
                 case MOVE_BEAK_BLAST:
-                    BattleScriptExecute(BattleScript_BeakBlastSetUp);
+                    BattleScriptPushCursorAndCallback(BattleScript_BeakBlastSetUp);
                     return TRUE;
                 case MOVE_SHELL_TRAP:
-                    BattleScriptExecute(BattleScript_ShellTrapSetUp);
+                    BattleScriptPushCursorAndCallback(BattleScript_ShellTrapSetUp);
                     return TRUE;
                 }
             }

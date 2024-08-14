@@ -189,7 +189,7 @@ void ActivateDynamax(u32 battler)
     if (!(gBattleMons[battler].status2 & STATUS2_TRANSFORMED)) // Ditto cannot Gigantamax.
         TryBattleFormChange(battler, FORM_CHANGE_BATTLE_GIGANTAMAX);
 
-    BattleScriptExecute(BattleScript_DynamaxBegins);
+    BattleScriptPushCursorAndCallback(BattleScript_DynamaxBegins);
 }
 
 // Unsets the flags used for Dynamaxing and reverts max HP if needed.

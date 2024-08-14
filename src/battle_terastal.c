@@ -38,9 +38,9 @@ void ActivateTera(u32 battler)
     // Execute battle script.
     PREPARE_TYPE_BUFFER(gBattleTextBuff1, GetBattlerTeraType(battler));
     if (TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_TERASTALLIZATION))
-        BattleScriptExecute(BattleScript_TeraFormChange);
+        BattleScriptPushCursorAndCallback(BattleScript_TeraFormChange);
     else
-        BattleScriptExecute(BattleScript_Terastallization);
+        BattleScriptPushCursorAndCallback(BattleScript_Terastallization);
 }
 
 // Applies palette blend and enables UI indicator after animation has played
