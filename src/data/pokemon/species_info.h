@@ -141,6 +141,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     #endif
         .levelUpLearnset = sNoneLevelUpLearnset,
         .teachableLearnset = sNoneTeachableLearnset,
+        .randomizerMode = MON_RANDOMIZER_INVALID,
         .eggMoveLearnset = sNoneEggMoveLearnset,
     },
 
