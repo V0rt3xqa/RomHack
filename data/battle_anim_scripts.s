@@ -18025,10 +18025,12 @@ PopulationBombContinue:
 	waitforvisualfinish
 	end
 
+gBattleAnimMove_RevivalBlessing::
+    goto gBattleAnimMove_LunarBlessing
+
 gBattleAnimMove_TeraBlast::
 gBattleAnimMove_OrderUp::
 gBattleAnimMove_GlaiveRush::
-gBattleAnimMove_RevivalBlessing::
 gBattleAnimMove_SaltCure::
 gBattleAnimMove_TripleDive::
 gBattleAnimMove_Doodle::
