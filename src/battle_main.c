@@ -4202,7 +4202,10 @@ static void HandleTurnActionSelectionState(void)
                     AI_DATA->mostSuitableMonId[battler] = GetMostSuitableMonToSwitchInto(battler, TRUE);
                 else
                     AI_DATA->mostSuitableMonId[battler] = GetMostSuitableMonToSwitchInto(battler, FALSE);
+
+                AI_DATA->aiCalcInProgress = TRUE;
                 gBattleStruct->aiMoveOrAction[battler] = ComputeBattleAiScores(battler);
+                AI_DATA->aiCalcInProgress = FALSE;
             }
             // fallthrough
         case STATE_BEFORE_ACTION_CHOSEN: // Choose an action.
