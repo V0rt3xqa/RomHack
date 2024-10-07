@@ -496,3 +496,74 @@ AI_SINGLE_BATTLE_TEST("AI_FLAG_SMART_SWITCHING: AI will switch out if it can't d
         TURN { MOVE(player, MOVE_TACKLE) ; EXPECT_SWITCH(opponent, 1); }
     }
 }
+
+AI_SINGLE_BATTLE_TEST("AI_FLAG_SMART_SWITCHING: AI will switch out if it has been infatuated")
+{
+    GIVEN {
+        ASSUME(gMovesInfo[MOVE_ATTRACT].effect == EFFECT_ATTRACT);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_SMART_SWITCHING);
+        PLAYER(SPECIES_LUVDISC) { Moves(MOVE_ATTRACT); Gender(MON_FEMALE); }
+        OPPONENT(SPECIES_ZIGZAGOON) { Moves(MOVE_TACKLE); Gender(MON_MALE); }
+        OPPONENT(SPECIES_ZIGZAGOON) { Moves(MOVE_TACKLE); Gender(MON_MALE); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_ATTRACT) ; EXPECT_MOVE(opponent, MOVE_TACKLE); }
+        TURN { MOVE(player, MOVE_ATTRACT) ; EXPECT_SWITCH(opponent, 1); }
+    }
+}
+
+AI_SINGLE_BATTLE_TEST("AI_FLAG_SMART_SWITCHING: AI will switch out if it has been Yawn'd with more than 1/3 HP remaining")
+{
+    u32 hp;
+    PARAMETRIZE { hp = 30; }
+    PARAMETRIZE { hp = 10; }
+    GIVEN {
+        ASSUME(gMovesInfo[MOVE_YAWN].effect == EFFECT_YAWN);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_SMART_SWITCHING);
+        PLAYER(SPECIES_SLAKOTH) { Moves(MOVE_TACKLE, MOVE_YAWN); }
+        OPPONENT(SPECIES_ZIGZAGOON) { Moves(MOVE_TACKLE); HP(hp); MaxHP(30); }
+        OPPONENT(SPECIES_ZIGZAGOON) { Moves(MOVE_TACKLE); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_YAWN) ; EXPECT_MOVE(opponent, MOVE_TACKLE); }
+        if (hp == 30)
+            TURN { MOVE(player, MOVE_YAWN) ; EXPECT_SWITCH(opponent, 1); }
+        else
+            TURN { MOVE(player, MOVE_YAWN) ; EXPECT_MOVE(opponent, MOVE_TACKLE); }
+    }
+}
+
+AI_DOUBLE_BATTLE_TEST("AI_FLAG_SMART_SWITCHING: AI will switch out if it has been Yawn'd with more than 1/3 HP remaining (Doubles)")
+{
+    u32 hp;
+    PARAMETRIZE { hp = 30; }
+    PARAMETRIZE { hp = 10; }
+    GIVEN {
+        ASSUME(gMovesInfo[MOVE_YAWN].effect == EFFECT_YAWN);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_SMART_SWITCHING);
+        PLAYER(SPECIES_SLAKOTH) { Moves(MOVE_TACKLE, MOVE_CELEBRATE, MOVE_YAWN); }
+        PLAYER(SPECIES_SLAKOTH) { Moves(MOVE_TACKLE, MOVE_CELEBRATE, MOVE_YAWN); }
+        OPPONENT(SPECIES_ZIGZAGOON) { Moves(MOVE_TACKLE); HP(hp); MaxHP(30); }
+        OPPONENT(SPECIES_ZIGZAGOON) { Moves(MOVE_TACKLE); }
+        OPPONENT(SPECIES_ZIGZAGOON) { Moves(MOVE_TACKLE); }
+        OPPONENT(SPECIES_ZIGZAGOON) { Moves(MOVE_TACKLE); }
+    } WHEN {
+        TURN { MOVE(playerLeft, MOVE_YAWN, target: opponentLeft); MOVE(playerRight, MOVE_CELEBRATE, target: opponentLeft); }
+        if (hp == 30)
+            TURN { MOVE(playerLeft, MOVE_YAWN, target: opponentLeft); MOVE(playerRight, MOVE_CELEBRATE, target: opponentLeft); EXPECT_SWITCH(opponentLeft, 2); }
+        else
+            TURN { MOVE(playerLeft, MOVE_YAWN, target: opponentLeft); MOVE(playerRight, MOVE_CELEBRATE, target: opponentLeft); EXPECT_MOVE(opponentLeft, MOVE_TACKLE); }
+    }
+}
+
+AI_SINGLE_BATTLE_TEST("AI_FLAG_SMART_SWITCHING: AI will switch out if player's mon is semi-invulernable and it has an absorber")
+{
+    GIVEN {
+        ASSUME(gMovesInfo[MOVE_ATTRACT].effect == EFFECT_ATTRACT);
+        AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_SMART_SWITCHING);
+        PLAYER(SPECIES_LUVDISC) { Moves(MOVE_DIVE); }
+        OPPONENT(SPECIES_ZIGZAGOON) { Moves(MOVE_TACKLE); }
+        OPPONENT(SPECIES_MANTINE) { Moves(MOVE_TACKLE); Ability(ABILITY_WATER_ABSORB); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_DIVE) ; EXPECT_MOVE(opponent, MOVE_TACKLE); }
+        TURN { MOVE(player, MOVE_DIVE) ; EXPECT_SWITCH(opponent, 1); }
+    }
+}
